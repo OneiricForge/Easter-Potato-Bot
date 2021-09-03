@@ -10,9 +10,6 @@ Just send them in [#easter-potato](https://discord.com/channels/7011769795834019
 
 - Help command
 
-![help command](https://i.imgur.com/ufC1zKQ.png)
-- Information on potatoes availables
-
 ![infopotato command](https://i.imgur.com/0iRfczl.png)
 - List all the potatoes availables (and you can find them in fantomitechno's role ![kappa](https://cdn.discordapp.com/emojis/820717744906829855.png?size=20))
 
@@ -38,23 +35,15 @@ You will need a MySql server with the tables :
 
 (We use MariaDB and PhpMyAdmin)
 
-If you don't use it in `localhost` you will have to change `./src/config.json` to match your configuration
+If you don't use it in `localhost` you will have to change `./src/utils/config.json` to match your configuration
 
 Do `npm i` to download all the packages
 
-**Warning there is a specifity on the configuration of this bot : it us a modified version of Advanced-Command-Handler :**
-
-> I change the `./node_modules/advanced-command-handler/types/types.d.ts` more precisly the line 11 : 
-```ts
-// Before
-export declare type DefaultCommandRunFunction = (commandHandler: typeof CommandHandler, message: Message, args: string[]) => Promise<void>;
-// After 
-export declare type DefaultCommandRunFunction = (commandHandler: typeof CommandHandler, context: any) => Promise<void>;
-```
 
 Create a `.env` file filed with :
 ```
 TOKEN=YOURTOKEN
+TOKEN_BETA=YOURTOKENFORBETA
 DATABASE_PASS=YOURPASSWORD
 DATABASE_USER=YOURUSER
 ```
