@@ -3,13 +3,6 @@ import dayjs from 'dayjs';
 import {MessageEmbed, WebhookClient} from 'discord.js';
 import {inspect} from 'util';
 
-const error = {
-	wb: new WebhookClient({id: '875346565844332594', token: 'RbSWYmEIoa15P6tvwG2o6X9qS0e_FEf4b_AhcdlDzHo52IaXjkzfSceMvsetahz6BEie'}),
-	embed: new MessageEmbed({
-		title: 'An error occured',
-		color: '#b52825',
-	}),
-};
 
 const colors = {
 	red: '#b52825',
@@ -98,7 +91,6 @@ export class Logger {
 	 */
 	public static error(message: any, title: string = 'error') {
 		Logger.process(message, LogType.error, title);
-		error.wb.send({embeds: [error.embed.setDescription(message)]});
 	}
 
 	/**
