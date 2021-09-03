@@ -12,6 +12,7 @@ const Categories = {
 	config: '⚙️ Configuration',
 	dev: '💻 Developpers',
 	info: '🌐 Informations',
+	potato: '🥔 Potatoes',
 };
 
 export class Bot extends Client {
