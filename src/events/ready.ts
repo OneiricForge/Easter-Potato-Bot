@@ -28,7 +28,7 @@ export default new Event('ready', async (client: Bot) => {
 					?.permissions.add({
 						permissions: [
 							{
-								id: '528340380064677891', //NewGlace
+								id: '437289213616979968', //Silvathor
 								type: 'USER',
 								permission: true,
 							},
@@ -37,6 +37,24 @@ export default new Event('ready', async (client: Bot) => {
 								type: 'USER',
 								permission: true,
 							},
+						],
+					});
+			}
+			for (const cmd of client.commands.filter(c => c instanceof Command && (c.permission?.user?.mod ?? false)).map(m => (m as Command).data.name)) {
+				guild?.commands.cache
+					.find(c => c.name === cmd)
+					?.permissions.add({
+						permissions: [
+							{
+								type: "USER",
+								id: "563749920683720709", //Fantomitechno
+								permission: true
+							},
+							{
+								type: "ROLE",
+								id: "698880675066937414", //Forgerons like
+								permission: true
+							}
 						],
 					});
 			}
@@ -50,7 +68,7 @@ export default new Event('ready', async (client: Bot) => {
 					?.permissions.add({
 						permissions: [
 							{
-								id: '528340380064677891', //NewGlace
+								id: '437289213616979968', //Silvathor
 								type: 'USER',
 								permission: true,
 							},
@@ -59,6 +77,27 @@ export default new Event('ready', async (client: Bot) => {
 								type: 'USER',
 								permission: true,
 							},
+						],
+						guild: guild,
+					});
+			}
+		}
+		for (const cmd of client.commands.filter(c => c instanceof Command && (c.permission?.user?.mod ?? false)).map(m => (m as Command).data.name)) {
+			for (const guild of client.guilds.cache.map(g => g.id)) {
+				client.application?.commands.cache
+					.find(c => c.name === cmd)
+					?.permissions.add({
+						permissions: [
+							{
+								id: '563749920683720709', //Fantomitechno
+								type: 'USER',
+								permission: true,
+							},
+							{
+								type: "ROLE",
+								id: "701178173139714069", //Forgerons
+								permission: true
+							}
 						],
 						guild: guild,
 					});
