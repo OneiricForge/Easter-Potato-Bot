@@ -1,4 +1,4 @@
-import { TextChannel } from 'discord.js';
+import { PresenceData, TextChannel } from 'discord.js';
 import {Command, Event, Bot, Logger} from '../utils/class/index';
 import {presence} from '../utils/config.json'
 
@@ -104,11 +104,11 @@ export default new Event('ready', async (client: Bot) => {
 			}
 		}
 	}
-	let status: any = presence.list[0]
+	let status = (presence.list[0] as PresenceData)
     client.user?.setPresence(status)
     let i = 1
     setInterval(() => {
-        status = presence.list[i]
+        status = (presence.list[i] as PresenceData)
         client.user?.setPresence(status)
         i ++
         if (i === presence.list.length) i = 0
