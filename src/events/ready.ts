@@ -75,4 +75,7 @@ export default new Event('ready', async (client: Bot) => {
         if (i === presence.list.length) i = 0
     },
     presence.time)
+
+	const verify = client.inDev ? "829407613204299797" : "829741063941521488";
+	(client.channels.cache.get(verify) as TextChannel).messages.fetch()
 });
