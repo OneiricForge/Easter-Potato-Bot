@@ -81,7 +81,7 @@ export default new Event(
 				await command.run(handler, ctx);
 				command.setCooldown(message);
 				Logger.log(`${message.author.tag} has executed the command ${Logger.setColor('red', command.name)}.`);
-			} catch (error) {
+			} catch (error: any) {
 				await codeError(message, error, command);
 			}
 		}
