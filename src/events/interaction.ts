@@ -82,7 +82,7 @@ export default new Event('interactionCreate', async (client: Bot, interaction: I
 						if (i.user.id === interaction.user.id) {
 							const user = ((interaction.message.components as MessageActionRow[])[0].components.find(e => e.type === "BUTTON" && e.customId?.startsWith('accept-'))?.customId?.replace('accept-','') as string)
 							await interaction.guild?.members.cache.get(user)?.roles.add(i.values[0])
-							await interaction.reply({content: "Done ^^", ephemeral: true});
+							await i.reply({content: "Done ^^", ephemeral: true});
 							await (interaction.message as Message).delete()
 							await msg.delete()
 							collector.stop()
