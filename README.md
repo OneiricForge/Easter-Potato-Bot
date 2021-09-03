@@ -8,8 +8,6 @@ Just send them in [#easter-potato](https://discord.com/channels/7011769795834019
 
 # Features
 
-- Help command
-
 ![infopotato command](https://i.imgur.com/0iRfczl.png)
 - List all the potatoes availables (and you can find them in fantomitechno's role ![kappa](https://cdn.discordapp.com/emojis/820717744906829855.png?size=20))
 
