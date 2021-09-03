@@ -1,0 +1,164 @@
+{
+    "database": {
+        "host": "localhost",
+        "database": "potato",
+        "refresh_time": 3600000
+    },
+    "presence": {
+        "activated": true,
+        "maintenance": {
+            "activity": {
+                "name": "MAINTENANCE",
+                "type": "PLAYING"
+                },
+            "status": "dnd"
+        },
+        "list": [
+            {
+                "activity": {
+                    "name": "with OneiricForge's maps",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "No NOréo building",
+                    "type": "WATCHING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "Taonix's music",
+                    "type": "LISTENING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "Atom's music",
+                    "type": "LISTENING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "BricoGeek's model",
+                    "type": "WATCHING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "a potato",
+                    "type": "STREAMING",
+                    "url": "https://www.twitch.tv/silvauncompte"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "Silvathor's videos",
+                    "type": "WATCHING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "with _RedCoal_'s datapacks",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "JeffWooden's fireworks",
+                    "type": "WATCHING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "with T.r.a.p.p.i",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "SwarpFight",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "a potato",
+                    "type": "STREAMING",
+                    "url": "https://www.twitch.tv/silvauncompte"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "DataGun",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "Surge of Leisure",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "with some magic rails",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "Replay Cube",
+                    "type": "WATCHING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "the riddle of Al-Adli's riders",
+                    "type": "PLAYING"
+                    },
+                "status": "online"
+            },
+            {
+                "activity": {
+                    "name": "a potato",
+                    "type": "STREAMING",
+                    "url": "https://www.twitch.tv/silvauncompte"
+                    },
+                "status": "online"
+            }
+        ],
+        "time": 20000
+    },
+    "owners": [
+        "563749920683720709", 
+        "437289213616979968"
+    ],
+    "prefix": "&",
+    "help": {
+        "category": [
+            ["❓・Information", "info"],
+            ["⚙️・Config", "config"]
+        ]
+    },
+    "emojis": {
+        "succes": "✅",
+        "fail": "❌"
+    }
+}
