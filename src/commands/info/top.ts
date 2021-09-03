@@ -6,8 +6,8 @@ import { pagination } from '../../utils/functions/pagination';
 
 export default new Command(
 	{
-		name: 'potatolist',
-		description: 'Give you the list of all the potatoes registred',
+		name: 'top',
+		description: 'Get the top of the bot',
 	},
 	async (client: Bot, interaction: CommandInteraction) => {
 		query(`SELECT * FROM users`, (err: MysqlError, res: {id: string, potatoes: number}[]) => {
