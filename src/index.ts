@@ -4,6 +4,8 @@ import {owners} from './utils/config.json'
 import mysql from "mysql"
 import { database } from "./utils/config.json"
 
+require("dotenv").config()
+
 export const client = new Bot(
 	{
 		devs: owners,
