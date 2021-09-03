@@ -15,15 +15,15 @@ export default new Event(
 		if (message.channel.id === "754451096033820712") {
 			if (!message.attachments) {
 				message.delete()
-				return message.author.send('3• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
+				return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
 			}
 			if (message.attachments.array().length != 1) {
 				message.delete()
-				return message.author.send('2• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
+				return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
 			}
 			if (!message.attachments.array()[0].name?.endsWith('.png') && message.attachments.array()[0].name?.endsWith('.jpg') && !message.attachments.array()[0].name?.endsWith('.jpeg') && !message.attachments.array()[0].name?.endsWith('.gif')) {
 				message.delete()
-				return message.author.send('1• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
+				return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
 			}
 			if (!message.guild) return
 			let x = message.attachments.array()[0].name?.split('.')?? []
