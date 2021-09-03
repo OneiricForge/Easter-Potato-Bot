@@ -21,3 +21,42 @@ Just send them in [#easter-potato](https://discord.com/channels/7011769795834019
 
 ![top command](https://i.imgur.com/60otsjk.png)
 - All the config commands (sorry but no screenshot are availables)
+
+# Contributing
+Fell free to contribute
+
+# Setup
+You will need a MySql server with the tables :
+> roles: 
+> - id: varchar(19) NOT NULL
+> - tag: text NOT NULL
+> - description: text NOT NULL
+> - link: text DEFAULT NULL
+> users: 
+> - id: varchar(19) NOT NULL
+> - potatoes: int(11) NOT NULL
+
+(We use MariaDB and PhpMyAdmin)
+
+If you don't use it in `localhost` you will have to change `./src/config.json` to match your configuration
+
+Do `npm i` to download all the packages
+
+**Warning there is a specifity on the configuration of this bot : it us a modified version of Advanced-Command-Handler :**
+
+> I change the `./node_modules/advanced-command-handler/types/types.d.ts` more precisly the line 11 : 
+```ts
+// Before
+export declare type DefaultCommandRunFunction = (commandHandler: typeof CommandHandler, message: Message, args: string[]) => Promise<void>;
+// After 
+export declare type DefaultCommandRunFunction = (commandHandler: typeof CommandHandler, context: any) => Promise<void>;
+```
+
+Create a .env file filed with :
+```
+TOKEN=YOURTOKEN
+DATABASE_PASS=YOURPASSWORD
+DATABASE_USER=YOURUSER
+```
+
+And finally you can launch the bot with `npm start`
