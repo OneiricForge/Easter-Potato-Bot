@@ -21,10 +21,9 @@ Just send them in [#easter-potato](https://discord.com/channels/7011769795834019
 Fell free to contribute
 
 # Setup
-You will need a MySql server with the tables :
+You will need a MySql database with the tables :
 > roles: 
 > - id: varchar(19) NOT NULL
-> - tag: text NOT NULL
 > - description: text NOT NULL
 > - link: text DEFAULT NULL
 > users: 
