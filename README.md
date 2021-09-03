@@ -52,7 +52,7 @@ export declare type DefaultCommandRunFunction = (commandHandler: typeof CommandH
 export declare type DefaultCommandRunFunction = (commandHandler: typeof CommandHandler, context: any) => Promise<void>;
 ```
 
-Create a .env file filed with :
+Create a `.env` file filed with :
 ```
 TOKEN=YOURTOKEN
 DATABASE_PASS=YOURPASSWORD
@@ -60,3 +60,5 @@ DATABASE_USER=YOURUSER
 ```
 
 And finally you can launch the bot with `npm start`
+
+If you're using something as pm2 you can build it your self with `tsc` and launch the file `./out/index.js`
