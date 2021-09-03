@@ -8,15 +8,15 @@ export default new Event('messageCreate', async (client: Bot, message: Message) 
 	if (message.channel.id === submit) {
 		if (!message.attachments) {
 			message.delete()
-			return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
+			return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!').catch(_ => _)
 		}
 		if (message.attachments.map(m => m).length != 1) {
 			message.delete()
-			return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
+			return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!').catch(_ => _)
 		}
 		if (!message.attachments.map(m => m)[0].name?.endsWith('.png') && message.attachments.map(m => m)[0].name?.endsWith('.jpg') && !message.attachments.map(m => m)[0].name?.endsWith('.jpeg') && !message.attachments.map(m => m)[0].name?.endsWith('.gif')) {
 			message.delete()
-			return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!')
+			return message.author.send('• :flag_fr: Ce salon n\'est pas fait pour discuter, si vous trouver une "Easter Potato" sur l\'une des maps d\'OneiricForge, postez une image le prouvant ici !\n\n• :flag_gb: This channel is not used for discussion, if you find an "Easter Potato" on one of the OneiricForge\'s maps, send a picture here!').catch(_ => _)
 		}
 		let extension = message.attachments.map(m => m)[0].name?.split('.')?? []
 		const attachment = new MessageAttachment(message.attachments.map(m => m)[0].url, message.guild.id+'.'+extension[extension.length - 1])
