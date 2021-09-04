@@ -1,24 +1,38 @@
-import { CommandHandler } from "advanced-command-handler"
-import { Intents } from "discord.js"
-import {owners} from "./config.json"
+import {Bot} from './utils/class';
+import {Logger} from './utils/class';
+import {owners} from './utils/config.json'
+import mysql from "mysql"
+import { database } from "./utils/config.json"
 
-require('dotenv').config()
+require("dotenv").config()
 
-process.chdir('out')
+export const client = new Bot(
+	{
+		devs: owners,
+		inDev: true,
+	},
+	{
+		intents: [
+			'GUILDS',
+			'GUILD_MESSAGES',
+			'GUILD_MEMBERS'
+		],
+	}
+);
 
-CommandHandler.create({
-    prefixes: ['&'],
-    commandsDir: "commands",
-    eventsDir: "events",
-    owners: owners
-}).launch({
-    token: process.env.TOKEN ?? "",
-    clientOptions: {
-        ws: { 
-            intents: Intents.ALL
-        },
-        restTimeOffset: 100,
-        disableMentions: 'everyone',
-        messageCacheMaxSize: 100
-    }
+
+let db = mysql.createConnection({
+    database: database.database,
+    host: database.host,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASS
 })
+
+db.connect()
+
+export const query = (query: any, fonction?: Function) => {
+    return db.query(query, fonction)
+}
+
+process.on('warning', error => Logger.error(`An error occurred. \n${error.stack}`));
+process.on('uncaughtException', error => Logger.error(`An error occurred. \n${error.stack}`));

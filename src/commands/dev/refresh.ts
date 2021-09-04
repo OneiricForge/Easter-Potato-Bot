@@ -1,28 +1,27 @@
-import { Command, CommandHandler, Tag } from 'advanced-command-handler';
+import {CommandInteraction} from 'discord.js';
 import { MysqlError } from 'mysql';
-import { Context } from '../../class/Context';
-import { query } from '../../functions/db';
-
+import { query } from '../..';
+import {Command, Bot} from '../../utils/class/index';
 
 export default new Command(
 	{
 		name: 'refresh',
-		description: "DANGER HERE",
-        tags: [Tag.ownerOnly, "guildOnly"]
+		description: 'DANGER HERE',
+        defaultPermission: false
 	},
-	async (handler: typeof CommandHandler, ctx: Context) => {
-        query("SELECT * FROM roles", async(err: MysqlError, res: {id: string, tag: string, description: string, link: string}[]) => {
+	async (client: Bot, interaction: CommandInteraction) => {
+		query("SELECT * FROM roles", async(err: MysqlError, res: {id: string, description: string, link: string}[]) => {
             const roles = res.map(r => r.id)
-            if (!ctx.guild) return
+            if (!interaction.guild) return
             let info: string
-            const msg = await ctx.send("Working...")
+            const msg = await interaction.reply({content:"Working..."})
             const interval = setInterval(function() {
-                msg.edit(info)
+                interaction.editReply({content: info})
             }, 2000)
             let counter = 0
-            for (const m of ctx.guild.members.cache.array()) {
+            for (const m of interaction.guild.members.cache.map(m => m)) {
                 counter ++
-                info = `Updating user ${counter}/${ctx.guild?.members.cache.size}`
+                info = `Updating user ${counter}/${interaction.guild?.members.cache.size}`
                 query("SELECT * FROM users WHERE id = '"+m.user.id+"'", (err: MysqlError, res: {id: string, potatoes: number}[]) => {
                     let potatoes = 0
                     for (const r of roles) {
@@ -35,11 +34,16 @@ export default new Command(
                     } else {
                         query(`UPDATE users SET potatoes = "${potatoes}" WHERE id = "${m.user.id}"`)
                     }
-                    info = `Updated user ${counter}/${ctx.guild?.members.cache.size}`
+                    info = `Updated user ${counter}/${interaction.guild?.members.cache.size}`
                 })
             }
             clearInterval(interval)
-            msg.edit("Finished")
+            interaction.editReply({content: "Finished"})
         })
-	}
+	},
+    {
+        user: {
+            dev: true
+        }
+    }
 );

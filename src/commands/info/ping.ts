@@ -1,15 +1,15 @@
-import { Command, CommandHandler } from 'advanced-command-handler';
-import { Context } from '../../class/Context';
-
+import {CommandInteraction} from 'discord.js';
+import {Command, Bot} from '../../utils/class/index';
 
 export default new Command(
 	{
 		name: 'ping',
-		description: "Get the bot latency"
+		description: 'Get the bot latency',
 	},
-	async (handler: typeof CommandHandler, ctx: Context) => {
-		const botPing = handler.client?.ws.ping
-		const apiPing = Date.now() - ctx.message.createdTimestamp
-		ctx.send(`Bot Latency: **${botPing}**ms\nAPI Latency: **${apiPing}**ms`);
+	async (client: Bot, interaction: CommandInteraction) => {
+		const api = interaction.guild?.shard.ping;
+		const bot = Date.now() - interaction.createdTimestamp;
+
+		interaction.reply(`Pong ! 🤖 ${bot}ms | <:djsguide:883437283120930848> ${api}ms`);
 	}
 );

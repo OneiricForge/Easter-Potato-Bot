@@ -1,25 +1,34 @@
-import { Command, CommandHandler } from 'advanced-command-handler';
+import {CommandInteraction} from 'discord.js';
 import { MysqlError } from 'mysql';
-import { Context } from '../../class/Context';
-import { query } from '../../functions/db';
-
+import { query } from '../..';
+import {Command, Bot} from '../../utils/class/index';
 
 export default new Command(
 	{
 		name: 'removepotato',
-		description: "Delete a potato",
-        userPermissions: ["MANAGE_ROLES"],
-		clientPermissions: ["MANAGE_ROLES"],
-        tags: ["guildOnly"],
-		aliases: ["rp", "oldpotato", 'op'],
-		usage: "removepotato <role>"
+		description: 'Delete a potato',
+        options: [
+            {
+                type: "ROLE",
+                name: "potato",
+                description: "The potato to remove",
+                required: true
+            }
+        ],
+        defaultPermission: false
 	},
-	async (handler: typeof CommandHandler, ctx: Context) => {
-		query(`SELECT * FROM roles WHERE tag = "${ctx.args[0]}"`, (err: MysqlError, res: {id:string, tag: string, description: string, link: string}[]) => {
-            if (!res.length) return ctx.send(`:x: - Vous devez donner le tag de la patate que vous voulez donnez. Obtenable via \`potatolist\``)
-            ctx.guild?.roles.cache.get(res[0].id)?.delete()
-            query(`DELETE FROM roles WHERE tag ="${ctx.args[0]}"`)
-            ctx.send(`:white_check_mark: - La patate avec le tag ${ctx.args[0]} a bien été supprimé !`)
+	async (client: Bot, interaction: CommandInteraction) => {
+        const role = interaction.options.getRole("potato", true)
+        query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, description: string, link: string}[]) => {
+            if (!roles.find(r => r.id === role.id)) return interaction.reply({content: `:x: - Wrong role this is not a potato role`, ephemeral: true})
+            interaction.guild?.roles.cache.get(role.id)?.delete()
+            query(`DELETE FROM roles WHERE id = "${role.id}"`)
+            interaction.reply({content: `:white_check_mark: - Done sir !`, ephemeral: true})
         })
-	}
+	},
+    {
+        user: {
+            mod: true
+        }
+    }
 );

@@ -1,26 +1,26 @@
-import { BetterEmbed, Command, CommandHandler } from 'advanced-command-handler';
-import { MysqlError } from 'mysql';
-import { Context } from '../../class/Context';
-import { query } from '../../functions/db';
-import { getUser } from '../../functions/get';
-
+import { CommandInteraction, GuildMember, MessageEmbed, MessageInteraction } from "discord.js";
+import { MysqlError } from "mysql";
+import { query } from "../..";
+import { Bot, Command } from "../../utils/class";
 
 export default new Command(
-	{
-		name: 'info',
-		description: "Get information on your rank and some other things",
-        tags: ["guildOnly"]
-	},
-	async (handler: typeof CommandHandler, ctx: Context) => {
-        let member = ctx.member
-        if (ctx.args[0]) {
-            const result = getUser(ctx.message, ctx.args[0])
-
-            if (result) member = result
-        }
-        query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, tag: string, description: string, link: string}[]) => {
+    {
+        name: "info",
+        description: "Get information on your rank and some other things",
+        options: [
+            {
+                type: "USER",
+                name: "user",
+                description: "The user you want information on",
+                required: false
+            }
+        ]
+    },
+    async (client: Bot, interaction: CommandInteraction) => {
+        let member = (interaction.options.getMember("user", false) as GuildMember) ?? (interaction.guild?.members.cache.get(interaction.user.id) as GuildMember)
+        query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, description: string, link: string}[]) => {
             query(`SELECT * FROM users`, (err: MysqlError, users: {id: string, potatoes: number}[]) => {
-                const embed = new BetterEmbed({
+                const embed = new MessageEmbed({
                     title: `Profil of ${member?.displayName} | 🥔`,
                     color: '#f1c40f'
                 })
@@ -29,7 +29,7 @@ export default new Command(
                     if (member?.roles.cache.has(r.id)) {
                         number ++
                         embed.fields.push({
-                            name: '• ' + ctx.guild?.roles.cache.get(r.id)?.name,
+                            name: '• ' + interaction.guild?.roles.cache.get(r.id)?.name,
                             value: r.link !== "none" ? `[${r.description}](${r.link})` : r.description,
                             inline: true
                         })
@@ -47,8 +47,8 @@ export default new Command(
                 users.sort((a, b) => b.potatoes - a.potatoes)
                 const me = users.findIndex(u => u.id === member?.id)
                 embed.description = `He is the ${(me === 0 ? '1st' : (me === 1 ? '2nd' : (me === 2 ? '3rd' : (me+1)+'th')))} with ${number} potato(es)`
-                ctx.send(embed)
+                interaction.reply({embeds: [embed]})
             })
         })
-	}
-);
+    }
+)

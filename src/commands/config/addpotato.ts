@@ -1,37 +1,61 @@
-import { Command, CommandHandler } from 'advanced-command-handler';
-import { Context } from '../../class/Context';
-import { query } from '../../functions/db';
-import { getRole } from '../../functions/get';
-
+import {CommandInteraction} from 'discord.js';
+import { query } from '../..';
+import {Command, Bot} from '../../utils/class/index';
 
 export default new Command(
 	{
 		name: 'addpotato',
-		description: "Create a potato",
-        userPermissions: ["MANAGE_ROLES"],
-        clientPermissions: ["MANAGE_ROLES"],
-        tags: ["guildOnly"],
-        aliases: ["ap","np","newpotato"],
-        usage: "addpotato <name> ; <tag> ; <link> ; <description>"
+		description: 'Create a potato',
+        options: [
+            {
+                type: "STRING",
+                name: "name",
+                description: "The name of the potato",
+                required: true
+            },
+            {
+                type: "STRING",
+                name: "description",
+                description: "The description of the potato",
+                required: true
+            },
+            {
+                type: "STRING",
+                name: "link",
+                description: "Link of the potato",
+                required: false
+            },
+            {
+                type: "ROLE",
+                name: "role",
+                description: "If you want to use an existing role"
+            }
+        ],
+        defaultPermission: false
 	},
-	async (handler: typeof CommandHandler, ctx: Context) => {
-		const argsspe = ctx.args.join(" ").split(" ; ")
-        if (!argsspe[0]) return ctx.send(`:x: - Veuillez indiquer un rôle/nom`)
-        const result = getRole(ctx.message, argsspe[0])
-        if (!argsspe[1]) return ctx.send(`:x: - Veuillez indiquer un tag`)
-        if (!argsspe[2] || (!argsspe[2].includes('http') && argsspe[2].toLowerCase() !== 'none')) return ctx.send(":x: - Veuillez indiquer le lien où on peut trouver cette patate (le lien de la map) ou indiquer `none`")
-        if (!argsspe[3]) return ctx.send(`:x: - Veuillez indiquer une description`)
-        if (!result) {
-            ctx.guild?.roles.create({data:{
-                name: argsspe[0],
+	async (client: Bot, interaction: CommandInteraction) => {
+		const name = interaction.options.getString("name", true)
+        const description = interaction.options.getString("description", true)
+        let link = interaction.options.getString("link", false)
+        if (link && !link.includes('http')) return interaction.reply({content: ":x: - Veuillez indiquer le lien où on peut trouver cette patate (le lien de la map)", ephemeral: true})
+        const role = interaction.options.getRole("role", false)
+
+        if (!role) {
+            interaction.guild?.roles.create({
+                name,
                 color: '#f1c40f'
-            }}).then(async r => {
-                query(`INSERT INTO roles (id, link, description, tag) VALUES ("${r.id}", "${argsspe[2]}", "${argsspe[3]}", "${argsspe[1]}")`)
-                ctx.send(`:white_check_mark: - Nouvelle patate créé`)
+            }).then(async r => {
+                query(`INSERT INTO roles (id, link, description) VALUES ("${r.id}", "${link??"none"}", "${description}")`)
+                interaction.reply({content:`:white_check_mark: - Nouvelle patate créé`, ephemeral: true})
             })
         } else {
-            query(`INSERT INTO roles (id, link, description, tag) VALUES ("${result.id}", "${argsspe[2]}", "${argsspe[3]}", "${argsspe[1]}")`)
-            ctx.send(`:white_check_mark: - Nouvelle patate enregistré`)
+            query(`INSERT INTO roles (id, link, description) VALUES ("${role.id}", "${link??"none"}", "${description}")`)
+            interaction.reply({content:`:white_check_mark: - Nouvelle patate créé`, ephemeral: true})
         }
-	}
+	},
+    {
+        user: {
+            mod: true
+        }
+    }
 );
