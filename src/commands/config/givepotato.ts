@@ -20,7 +20,8 @@ export default new Command(
                 description: "The potato to give",
                 required: true
             }
-        ]
+        ],
+        defaultPermission: false
 	},
 	async (client: Bot, interaction: CommandInteraction) => {
         const role = interaction.options.getRole("potato", true)
@@ -42,5 +43,10 @@ export default new Command(
                 })
             })
         })
-	}
+	},
+    {
+        user: {
+            mod: true
+        }
+    }
 );

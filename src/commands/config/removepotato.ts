@@ -14,7 +14,8 @@ export default new Command(
                 description: "The potato to remove",
                 required: true
             }
-        ]
+        ],
+        defaultPermission: false
 	},
 	async (client: Bot, interaction: CommandInteraction) => {
         const role = interaction.options.getRole("potato", true)
@@ -24,5 +25,10 @@ export default new Command(
             query(`DELETE FROM roles WHERE id = "${role.id}"`)
             interaction.reply({content: `:white_check_mark: - Done sir !`, ephemeral: true})
         })
-	}
+	},
+    {
+        user: {
+            mod: true
+        }
+    }
 );
