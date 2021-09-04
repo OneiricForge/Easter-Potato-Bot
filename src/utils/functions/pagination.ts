@@ -31,7 +31,7 @@ export const pagination = async (
 	});
 	let baseEmbed = new MessageEmbed({
 		title: title,
-		color: '#33334C',
+		color: '#f1c40f',
 		footer: {text: `(${page + 1}/${maxPages + 1})`},
 	});
 
