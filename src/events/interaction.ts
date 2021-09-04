@@ -60,7 +60,7 @@ export default new Event('interactionCreate', async (client: Bot, interaction: I
 		if (interaction.channel?.id === verify) {
 			if (!interaction.message.components) return
 			if (interaction.customId.startsWith('accept-')) {
-				query(`SELECT * FROM roles`, async (err: MysqlError, res: {id:string, tag: string, description: string, link: string}[]) => {
+				query(`SELECT * FROM roles`, async (err: MysqlError, res: {id:string, description: string, link: string}[]) => {
 					const options: MessageSelectOptionData[] = [
 					]
 					for (const role of res) {

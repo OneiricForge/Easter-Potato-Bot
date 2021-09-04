@@ -10,7 +10,7 @@ export default new Command(
         defaultPermission: false
 	},
 	async (client: Bot, interaction: CommandInteraction) => {
-		query("SELECT * FROM roles", async(err: MysqlError, res: {id: string, tag: string, description: string, link: string}[]) => {
+		query("SELECT * FROM roles", async(err: MysqlError, res: {id: string, description: string, link: string}[]) => {
             const roles = res.map(r => r.id)
             if (!interaction.guild) return
             let info: string
