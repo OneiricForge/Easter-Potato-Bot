@@ -15,6 +15,7 @@ export const client = new Bot(
 		intents: [
 			'GUILDS',
 			'GUILD_MESSAGES',
+			'GUILD_MEMBERS'
 		],
 	}
 );

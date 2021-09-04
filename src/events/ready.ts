@@ -4,7 +4,7 @@ import {presence} from '../utils/config.json'
 
 export default new Event('ready', async (client: Bot) => {
 	const guilds = [
-		client.guilds.cache.get(`697788133609046058`)
+		client.guilds.cache.get(`697788133609046058`) //This is my testing guild
 	];
 	Logger.log(`${client.user?.username} launched in ${Date.now() - client.launchedAt}ms !`);
 
@@ -103,6 +103,11 @@ export default new Event('ready', async (client: Bot) => {
 			
 		}
 	}
+	Logger.info('Cache', 'SETUP');
+	for (const guild of client.guilds.cache.map(m =>m)) {
+        await guild?.members.fetch()
+	}
+	Logger.info('Done', 'SETUP');
 	let status = (presence.list[0] as PresenceData)
     client.user?.setPresence(status)
     let i = 1
