@@ -21,7 +21,7 @@ export default new Event('ready', async (client: Bot) => {
 
 	if (client.inDev) {
 		for (const guild of guilds) {
-			await guild?.commands.set(client.commands.filter(c => c instanceof Command).map(c => (c as Command).data));
+			await guild?.commands.set(client.commands.filter(c => c instanceof Command).map(c => (c as Command).data)).catch(_ => _);
 			for (const cmd of client.commands.filter(c => c instanceof Command && (c.permission?.user?.dev ?? false)).map(m => (m as Command).data.name)) {
 				guild?.commands.cache
 					.find(c => c.name === cmd)
@@ -38,7 +38,7 @@ export default new Event('ready', async (client: Bot) => {
 								permission: true,
 							},
 						],
-					});
+					}).catch(_ => _);
 			}
 			for (const cmd of client.commands.filter(c => c instanceof Command && (c.permission?.user?.mod ?? false)).map(m => (m as Command).data.name)) {
 				guild?.commands.cache
@@ -56,7 +56,7 @@ export default new Event('ready', async (client: Bot) => {
 								permission: true
 							}
 						],
-					});
+					}).catch(_ => _);
 			}
 		}
 	} else {
@@ -79,7 +79,7 @@ export default new Event('ready', async (client: Bot) => {
 							},
 						],
 						guild: guild,
-					});
+					}).catch(_ => _);
 			}
 		}
 		for (const cmd of client.commands.filter(c => c instanceof Command && (c.permission?.user?.mod ?? false)).map(m => (m as Command).data.name)) {
@@ -99,7 +99,7 @@ export default new Event('ready', async (client: Bot) => {
 						}
 					],
 					guild: "701176979583401994",
-				});
+				}).catch(_ => _);
 			
 		}
 	}
