@@ -49,9 +49,11 @@ export const pagination = async (
 	}
 	await i.reply({embeds: [baseEmbed], components: [buttons]});
 	const m = (await i.fetchReply()) as Message;
+	m.edit({embeds: [baseEmbed], components: [buttons]})
 	const data_res = m.createMessageComponentCollector({time: 120000, componentType: 'BUTTON'});
 	data_res.on('collect', async i => {
 		if (i.customId === '❌') {
+			i.deferUpdate()
 			return data_res.stop();
 		}
 		if (i.customId === '⬅️' && page !== 0) page--;
@@ -70,6 +72,10 @@ export const pagination = async (
 				});
 			}
 		}
-		m.edit({embeds: [baseEmbed], components: [buttons]});
+		i.deferUpdate()
+		m.edit({embeds: [baseEmbed], components: [buttons]})
 	});
+	data_res.on('end', async (_ , r) => {
+		m.edit({embeds: [baseEmbed], components: []})
+	})
 };
