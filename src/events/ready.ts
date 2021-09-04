@@ -83,25 +83,24 @@ export default new Event('ready', async (client: Bot) => {
 			}
 		}
 		for (const cmd of client.commands.filter(c => c instanceof Command && (c.permission?.user?.mod ?? false)).map(m => (m as Command).data.name)) {
-			for (const guild of client.guilds.cache.map(g => g.id)) {
-				client.application?.commands.cache
-					.find(c => c.name === cmd)
-					?.permissions.add({
-						permissions: [
-							{
-								id: '563749920683720709', //Fantomitechno
-								type: 'USER',
-								permission: true,
-							},
-							{
-								type: "ROLE",
-								id: "701178173139714069", //Forgerons
-								permission: true
-							}
-						],
-						guild: guild,
-					});
-			}
+			client.application?.commands.cache
+				.find(c => c.name === cmd)
+				?.permissions.add({
+					permissions: [
+						{
+							id: '563749920683720709', //Fantomitechno
+							type: 'USER',
+							permission: true,
+						},
+						{
+							type: "ROLE",
+							id: "701178173139714069", //Forgerons
+							permission: true
+						}
+					],
+					guild: "701176979583401994",
+				});
+			
 		}
 	}
 	let status = (presence.list[0] as PresenceData)
