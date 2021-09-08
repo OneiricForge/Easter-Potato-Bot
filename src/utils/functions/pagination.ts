@@ -51,13 +51,13 @@ export const pagination = async (
 	const m = (await i.fetchReply()) as Message;
 	m.edit({embeds: [baseEmbed], components: [buttons]})
 	const data_res = m.createMessageComponentCollector({time: 120000, componentType: 'BUTTON'});
-	data_res.on('collect', async i => {
-		if (i.customId === '❌') {
-			i.deferUpdate()
+	data_res.on('collect', async it => {
+		if (it.customId === '❌') {
+			it.deferUpdate()
 			return data_res.stop();
 		}
-		if (i.customId === '⬅️' && page !== 0) page--;
-		if (i.customId === '➡️' && page < maxPages) page++;
+		if (it.customId === '⬅️' && page !== 0) page--;
+		if (it.customId === '➡️' && page < maxPages) page++;
 		baseEmbed.footer = {text: `(${page + 1}/${maxPages + 1})`};
 		let text = tab.slice(page * 10, (page + 1) * 10);
 		if (type === 'description') {
@@ -72,7 +72,7 @@ export const pagination = async (
 				});
 			}
 		}
-		i.deferUpdate()
+		it.deferUpdate()
 		m.edit({embeds: [baseEmbed], components: [buttons]})
 	});
 	data_res.on('end', async (_ , r) => {
