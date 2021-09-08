@@ -53,7 +53,7 @@ export const pagination = async (
 	const data_res = m.createMessageComponentCollector({time: 120000, componentType: 'BUTTON'});
 	data_res.on('collect', async it => {
 		if (it.user.id !== i.user.id) {
-			return it.reply({content: `This panel is not for you`})
+			return it.reply({content: `This panel is not for you`, ephemeral: true})
 		}
 		if (it.customId === '❌') {
 			it.deferUpdate()
