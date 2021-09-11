@@ -46,4 +46,9 @@ export default new Event('messageCreate', async (client: Bot, message: Message) 
 		channel.send({embeds:[embed], files: [attachment], components: [buttons]})
 		message.delete()
 	}
+	const vote = client.inDev ? "771713712150282270" : "867343862728228895"
+	if (message.channel.id === vote) {
+		await message.react(`✅`)
+		await message.react(`❌`)
+	}
 });

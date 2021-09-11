@@ -17,6 +17,7 @@ export const client = new Bot(
 			'GUILD_MESSAGES',
 			'GUILD_MEMBERS'
 		],
+		restTimeOffset: 50,
 	}
 );
 
