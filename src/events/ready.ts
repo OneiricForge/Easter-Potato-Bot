@@ -1,6 +1,7 @@
 import { PresenceData, TextChannel } from 'discord.js';
 import {Command, Event, Bot, Logger} from '../utils/class/index';
 import {presence} from '../utils/config.json'
+import { query } from '..';
 
 export default new Event('ready', async (client: Bot) => {
 	const guilds = [
@@ -107,11 +108,15 @@ export default new Event('ready', async (client: Bot) => {
 	for (const guild of client.guilds.cache.map(m =>m)) {
         await guild?.members.fetch()
 	}
+	const verify = client.inDev ? "829407613204299797" : "829741063941521488";
+	(client.channels.cache.get(verify) as TextChannel).messages.fetch()
 	Logger.info('Done', 'SETUP');
 	let status = (presence.list[0] as PresenceData)
     client.user?.setPresence(status)
     let i = 1
     setInterval(() => {
+				query(`SELECT * FROM roles`);
+				(client.channels.cache.get(verify) as TextChannel).messages.fetch()
         status = (presence.list[i] as PresenceData)
         client.user?.setPresence(status)
         i ++
@@ -119,6 +124,5 @@ export default new Event('ready', async (client: Bot) => {
     },
     presence.time)
 
-	const verify = client.inDev ? "829407613204299797" : "829741063941521488";
-	(client.channels.cache.get(verify) as TextChannel).messages.fetch()
+	
 });
