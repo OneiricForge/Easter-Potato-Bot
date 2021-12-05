@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionData, Client, ClientOptions, Collection} from 'discord.js';
+import { ApplicationCommandOptionData, Client, ClientOptions, Collection, ClientEvents } from 'discord.js';
 import {readdirSync} from 'fs';
 import {Command, Event} from './index';
 import {SubCommand} from './Command';
@@ -39,7 +39,7 @@ export class Bot extends Client {
 			if (!event.endsWith('.js')) return;
 			delete require.cache[require.resolve('../../' + pathEvent + event)];
 
-			const eventClass: Event = require('../../' + pathEvent + event).default;
+			const eventClass: Event<keyof ClientEvents> = require('../../' + pathEvent + event).default;
 			this.on(eventClass.name, eventClass.run.bind(null, this));
 		});
 

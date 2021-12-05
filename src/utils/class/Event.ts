@@ -1,13 +1,13 @@
+import { Awaited, ClientEvents } from 'discord.js';
 import {Bot} from './Bot';
 
-type RunFunction = (...options: any[]) => Promise<any> | void;
 
-export class Event {
-	name: string;
+export class Event <K extends keyof ClientEvents>{
+	name: K;
 
-	run: RunFunction;
-
-	constructor(name: string, run: RunFunction = (client: Bot) => {}) {
+	run: (client: Bot, ...args: ClientEvents[K]) => Awaited<void>
+	
+	constructor(name: K, run: (client: Bot, ...args: ClientEvents[K]) => Awaited<void>) {
 		this.name = name;
 		this.run = run;
 	}
