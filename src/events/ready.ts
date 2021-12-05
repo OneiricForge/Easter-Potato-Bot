@@ -1,7 +1,8 @@
 import { PresenceData, TextChannel } from 'discord.js';
-import {Command, Event, Bot, Logger} from '../utils/class/index';
-import {presence} from '../utils/config.json'
+
 import { query } from '..';
+import { Bot, Command, Event, Logger } from '../utils/class';
+import { presence } from '../utils/config.json';
 
 export default new Event('ready', async (client: Bot) => {
 	const guilds = [

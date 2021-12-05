@@ -1,5 +1,6 @@
-import {Message, MessageActionRow, MessageAttachment, MessageButton, MessageEmbed, TextChannel, User} from 'discord.js';
-import {Event, Bot} from '../utils/class/index';
+import { Message, MessageActionRow, MessageAttachment, MessageButton, MessageEmbed, TextChannel } from 'discord.js';
+
+import { Bot, Event } from '../utils/class';
 
 export default new Event('messageCreate', async (client: Bot, message: Message) => {
 	if (message.author.bot || !message.guild) return

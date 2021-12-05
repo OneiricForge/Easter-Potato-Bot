@@ -1,5 +1,6 @@
-import {CommandInteraction} from 'discord.js';
-import {Command, Bot} from '../../utils/class/index';
+import { CommandInteraction } from 'discord.js';
+
+import { Bot, Command } from '../../utils/class';
 
 export default new Command(
 	{

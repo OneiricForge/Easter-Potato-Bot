@@ -1,7 +1,8 @@
-import {CommandInteraction, MessageEmbed} from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import { MysqlError } from 'mysql';
+
 import { query } from '../..';
-import {Command, Bot} from '../../utils/class/index';
+import { Bot, Command } from '../../utils/class';
 import { pagination } from '../../utils/functions/pagination';
 
 export default new Command(

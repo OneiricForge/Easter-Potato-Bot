@@ -1,8 +1,15 @@
-import {GuildMember, Interaction, Message, MessageActionRow, MessageComponentInteraction, MessageSelectMenu, MessageSelectOption, MessageSelectOptionData, Role, SelectMenuInteraction, TextChannel} from 'discord.js';
-import { RawMessageSelectMenuInteractionData } from 'discord.js/typings/rawDataTypes';
+import {
+  Interaction,
+  Message,
+  MessageActionRow,
+  MessageSelectMenu,
+  MessageSelectOptionData,
+  SelectMenuInteraction,
+} from 'discord.js';
 import { MysqlError } from 'mysql';
+
 import { query } from '..';
-import {Event, Bot, Logger} from '../utils/class/index';
+import { Bot, Event, Logger } from '../utils/class';
 
 export default new Event('interactionCreate', async (client: Bot, interaction: Interaction) => {
 	if (interaction.isCommand()) {

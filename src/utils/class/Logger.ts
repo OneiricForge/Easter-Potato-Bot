@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 import dayjs from 'dayjs';
-import {MessageEmbed, WebhookClient} from 'discord.js';
-import {inspect} from 'util';
+import { inspect } from 'util';
 
 
 const colors = {

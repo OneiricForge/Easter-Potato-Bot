@@ -1,8 +1,7 @@
-import {Bot} from './utils/class';
-import {Logger} from './utils/class';
-import {owners} from './utils/config.json'
-import mysql from "mysql"
-import { database } from "./utils/config.json"
+import mysql from 'mysql';
+
+import { Bot, Logger } from './utils/class';
+import { database, owners } from './utils/config.json';
 
 require("dotenv").config()
 

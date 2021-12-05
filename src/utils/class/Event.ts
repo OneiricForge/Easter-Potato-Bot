@@ -1,5 +1,6 @@
 import { Awaited, ClientEvents } from 'discord.js';
-import {Bot} from './Bot';
+
+import { Bot } from './Bot';
 
 
 export class Event <K extends keyof ClientEvents>{

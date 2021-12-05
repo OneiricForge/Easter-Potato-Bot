@@ -1,5 +1,6 @@
-import {ApplicationCommandData, CommandInteraction, PermissionResolvable} from 'discord.js';
-import {Bot} from './Bot';
+import { ApplicationCommandData, CommandInteraction, PermissionResolvable } from 'discord.js';
+
+import { Bot } from './Bot';
 
 type DefaultCommandRunFunction = (client: Bot, interaction: CommandInteraction) => Promise<void> | void;
 

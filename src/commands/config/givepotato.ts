@@ -1,7 +1,8 @@
-import {CommandInteraction, GuildMember} from 'discord.js';
+import { CommandInteraction, GuildMember } from 'discord.js';
 import { MysqlError } from 'mysql';
+
 import { query } from '../..';
-import {Command, Bot} from '../../utils/class/index';
+import { Bot, Command } from '../../utils/class';
 
 export default new Command(
 	{

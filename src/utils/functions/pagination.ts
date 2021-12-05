@@ -1,4 +1,4 @@
-import {CommandInteraction, Message, MessageActionRow, MessageButton, MessageEmbed} from 'discord.js';
+import { CommandInteraction, Message, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
 export const pagination = async (
 	i: CommandInteraction,

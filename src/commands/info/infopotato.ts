@@ -1,7 +1,8 @@
-import { CommandInteraction, MessageEmbed, MessageInteraction } from "discord.js";
-import { MysqlError } from "mysql";
-import { query } from "../..";
-import { Bot, Command } from "../../utils/class";
+import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { MysqlError } from 'mysql';
+
+import { query } from '../..';
+import { Bot, Command } from '../../utils/class';
 
 export default new Command(
     {
