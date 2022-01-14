@@ -93,7 +93,22 @@ export default new Event('interactionCreate', async (client: Bot, interaction: I
 					collector.on("collect", async (i: SelectMenuInteraction) => {
 						if (i.user.id === interaction.user.id) {
 							const user = ((interaction.message.components as MessageActionRow[])[0].components.find(e => e.type === "BUTTON" && e.customId?.startsWith('accept-'))?.customId?.replace('accept-','') as string)
-							await interaction.guild?.members.cache.get(user)?.roles.add(i.values[0])
+							const member = interaction.guild?.members.cache.get(user)
+							await member?.roles.add(i.values[0])
+							query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, description: string, link: string}[]) => {
+								query(`SELECT * FROM users WHERE id = "${member?.id}"`, async (err: MysqlError, res2: {id: string, potatoes: number}[]) => {
+									let number = 0
+									for (const role of roles) {
+										if (member?.roles.cache.has(role.id)) number ++
+									}
+									if (!res2.length) {
+										query(`INSERT INTO users (id, potatoes) VALUES ("${member?.id}", "${number}")`)
+									} else {
+										query(`UPDATE users SET potatoes = "${number}" WHERE id = "${member?.id}"`)
+									}
+									interaction.reply({content: `:white_check_mark: - Done sir !`, ephemeral: true})
+							})
+						})
 							await i.reply({content: "Done ^^", ephemeral: true});
 							await (interaction.message as Message).delete()
 							await msg.delete()
