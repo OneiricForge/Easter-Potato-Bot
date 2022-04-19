@@ -75,8 +75,7 @@ export const pagination = async (
 				});
 			}
 		}
-		it.deferUpdate()
-		m.edit({embeds: [baseEmbed], components: [buttons]})
+		it.update({embeds: [baseEmbed], components: [buttons]})
 	});
 	data_res.on('end', async (_ , r) => {
 		m.edit({embeds: [baseEmbed], components: []})

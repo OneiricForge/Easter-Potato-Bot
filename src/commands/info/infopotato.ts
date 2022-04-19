@@ -1,7 +1,6 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { MysqlError } from 'mysql';
 
-import { query } from '../..';
+import { db } from '../..';
 import { Bot, Command } from '../../utils/class';
 
 export default new Command(
@@ -19,7 +18,7 @@ export default new Command(
     },
     async (client: Bot, interaction: CommandInteraction) => {
         const potato = interaction.options.getRole("potato", true)
-        query(`SELECT * FROM roles`, (err:MysqlError, roles: {id:string, description: string, link: string}[]) => {
+        db.all(`SELECT * FROM roles`, (err, roles: {id:string, description: string, link: string}[]) => {
             let patate = roles.find(r => r.id === potato.id)
             if (!patate) return interaction.reply({content: `:x: - Wrong role this is not a potato role`, ephemeral: true})
             let numbers = []

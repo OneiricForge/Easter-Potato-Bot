@@ -1,6 +1,6 @@
 import { PresenceData, TextChannel } from 'discord.js';
 
-import { query } from '..';
+import { db } from '..';
 import { Bot, Command, Event, Logger } from '../utils/class';
 import { presence } from '../utils/config.json';
 
@@ -116,7 +116,6 @@ export default new Event('ready', async (client: Bot) => {
     client.user?.setPresence(status)
     let i = 1
     setInterval(() => {
-				query(`SELECT * FROM roles`);
 				(client.channels.cache.get(verify) as TextChannel).messages.fetch()
         status = (presence.list[i] as PresenceData)
         client.user?.setPresence(status)

@@ -1,7 +1,6 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { MysqlError } from 'mysql';
 
-import { query } from '../..';
+import { db } from '../..';
 import { Bot, Command } from '../../utils/class';
 
 export default new Command(
@@ -10,7 +9,7 @@ export default new Command(
         description: "What's this bot for ?"
     },
     async (client: Bot, interaction: CommandInteraction) => {
-        query(`SELECT * FROM users`,(err: MysqlError, res: {id: string, potatoes: number}[]) => {
+        db.all(`SELECT * FROM users`,(err, res: {id: string, potatoes: number}[]) => {
             let users = res.sort((a, b) => b.potatoes - a.potatoes)
             let embed = new MessageEmbed({
                 title: "FAQ  | 🥔",

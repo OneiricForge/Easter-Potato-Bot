@@ -80,3 +80,5 @@ typings/
 
 # TS
 out/
+
+*.db

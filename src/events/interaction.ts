@@ -6,9 +6,8 @@ import {
   MessageSelectOptionData,
   SelectMenuInteraction,
 } from 'discord.js';
-import { MysqlError } from 'mysql';
 
-import { query } from '..';
+import { db } from '..';
 import { Bot, Event, Logger } from '../utils/class';
 
 export default new Event('interactionCreate', async (client: Bot, interaction: Interaction) => {
@@ -67,7 +66,7 @@ export default new Event('interactionCreate', async (client: Bot, interaction: I
 		if (interaction.channel?.id === verify) {
 			if (!interaction.message.components) return
 			if (interaction.customId.startsWith('accept-')) {
-				query(`SELECT * FROM roles`, async (err: MysqlError, res: {id:string, description: string, link: string}[]) => {
+				db.all(`SELECT * FROM roles`, async (err, res: {id:string, description: string, link: string}[]) => {
 					const options: MessageSelectOptionData[] = [
 					]
 					for (const role of res) {
@@ -95,16 +94,16 @@ export default new Event('interactionCreate', async (client: Bot, interaction: I
 							const user = ((interaction.message.components as MessageActionRow[])[0].components.find(e => e.type === "BUTTON" && e.customId?.startsWith('accept-'))?.customId?.replace('accept-','') as string)
 							const member = interaction.guild?.members.cache.get(user)
 							await member?.roles.add(i.values[0])
-							query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, description: string, link: string}[]) => {
-								query(`SELECT * FROM users WHERE id = "${member?.id}"`, async (err: MysqlError, res2: {id: string, potatoes: number}[]) => {
+							db.all(`SELECT * FROM roles`, (err, roles: {id:string, description: string, link: string}[]) => {
+								db.all(`SELECT * FROM users WHERE id = "${member?.id}"`, async (err, res2: {id: string, potatoes: number}[]) => {
 									let number = 0
 									for (const role of roles) {
 										if (member?.roles.cache.has(role.id)) number ++
 									}
 									if (!res2.length) {
-										query(`INSERT INTO users (id, potatoes) VALUES ("${member?.id}", "${number}")`)
+										db.run(`INSERT INTO users (id, potatoes) VALUES ("${member?.id}", "${number}")`)
 									} else {
-										query(`UPDATE users SET potatoes = "${number}" WHERE id = "${member?.id}"`)
+										db.run(`UPDATE users SET potatoes = "${number}" WHERE id = "${member?.id}"`)
 									}
 									interaction.reply({content: `:white_check_mark: - Done sir !`, ephemeral: true})
 							})

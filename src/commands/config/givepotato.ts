@@ -1,7 +1,6 @@
 import { CommandInteraction, GuildMember } from 'discord.js';
-import { MysqlError } from 'mysql';
 
-import { query } from '../..';
+import { db } from '../..';
 import { Bot, Command } from '../../utils/class';
 
 export default new Command(
@@ -27,18 +26,18 @@ export default new Command(
 	async (client: Bot, interaction: CommandInteraction) => {
         const role = interaction.options.getRole("potato", true)
         const user = (interaction.options.getMember("user", true) as GuildMember)
-        query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, description: string, link: string}[]) => {
+        db.all(`SELECT * FROM roles`, (err, roles: {id:string, description: string, link: string}[]) => {
             if (!roles.find(r => r.id === role.id)) return interaction.reply({content: `:x: - Wrong role this is not a potato role`, ephemeral: true})
             user.roles.add(role.id).then(_ => {
-                query(`SELECT * FROM users WHERE id = "${user?.id}"`, async (err: MysqlError, res2: {id: string, potatoes: number}[]) => {
+                db.all(`SELECT * FROM users WHERE id = "${user?.id}"`, async (err, res2: {id: string, potatoes: number}[]) => {
                     let number = 0
                     for (const role of roles) {
                         if (user?.roles.cache.has(role.id)) number ++
                     }
                     if (!res2.length) {
-                        query(`INSERT INTO users (id, potatoes) VALUES ("${user?.id}", "${number}")`)
+                        db.run(`INSERT INTO users (id, potatoes) VALUES ("${user?.id}", "${number}")`)
                     } else {
-                        query(`UPDATE users SET potatoes = "${number}" WHERE id = "${user?.id}"`)
+                        db.run(`UPDATE users SET potatoes = "${number}" WHERE id = "${user?.id}"`)
                     }
                     interaction.reply({content: `:white_check_mark: - Done sir !`, ephemeral: true})
                 })

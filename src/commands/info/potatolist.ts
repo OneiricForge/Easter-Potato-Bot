@@ -1,7 +1,6 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { MysqlError } from 'mysql';
 
-import { query } from '../..';
+import { db } from '../..';
 import { Bot, Command } from '../../utils/class';
 
 export default new Command(
@@ -10,7 +9,7 @@ export default new Command(
 		description: 'Give you the list of all the potatoes registred',
 	},
 	async (client: Bot, interaction: CommandInteraction) => {
-		query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, description: string, link: string}[]) => {
+		db.all(`SELECT * FROM roles`, (err, roles: {id:string, description: string, link: string}[]) => {
             const embed = new MessageEmbed({
                 title: `List of all available potatoes | 🥔`,
                 description: `To win potatoes, send proof that you have collected it in <#754451096033820712>`,

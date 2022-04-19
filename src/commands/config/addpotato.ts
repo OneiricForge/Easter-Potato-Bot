@@ -1,6 +1,6 @@
 import { CommandInteraction } from 'discord.js';
 
-import { query } from '../..';
+import { db } from '../..';
 import { Bot, Command } from '../../utils/class';
 
 export default new Command(
@@ -46,11 +46,11 @@ export default new Command(
                 name,
                 color: '#f1c40f'
             }).then(async r => {
-                query(`INSERT INTO roles (id, link, description) VALUES ("${r.id}", "${link??"none"}", "${description}")`)
+                db.run(`INSERT INTO roles (id, link, description) VALUES ("${r.id}", "${link??"none"}", "${description}")`)
                 interaction.reply({content:`:white_check_mark: - Nouvelle patate créé`, ephemeral: true})
             })
         } else {
-            query(`INSERT INTO roles (id, link, description) VALUES ("${role.id}", "${link??"none"}", "${description}")`)
+            db.run(`INSERT INTO roles (id, link, description) VALUES ("${role.id}", "${link??"none"}", "${description}")`)
             interaction.reply({content:`:white_check_mark: - Nouvelle patate créé`, ephemeral: true})
         }
 	},

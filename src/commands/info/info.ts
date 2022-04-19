@@ -1,7 +1,6 @@
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
-import { MysqlError } from 'mysql';
 
-import { query } from '../..';
+import { db } from '../..';
 import { Bot, Command } from '../../utils/class';
 
 export default new Command(
@@ -19,8 +18,8 @@ export default new Command(
     },
     async (client: Bot, interaction: CommandInteraction) => {
         let member = (interaction.options.getMember("user", false) as GuildMember) ?? (interaction.guild?.members.cache.get(interaction.user.id) as GuildMember)
-        query(`SELECT * FROM roles`, (err: MysqlError, roles: {id:string, description: string, link: string}[]) => {
-            query(`SELECT * FROM users`, (err: MysqlError, users: {id: string, potatoes: number}[]) => {
+        db.all(`SELECT * FROM roles`, (err, roles: {id:string, description: string, link: string}[]) => {
+            db.all(`SELECT * FROM users`, (err, users: {id: string, potatoes: number}[]) => {
                 const embed = new MessageEmbed({
                     title: `Profil of ${member?.displayName} | 🥔`,
                     color: '#f1c40f'
@@ -41,9 +40,9 @@ export default new Command(
                         id: member?.id??"",
                         potatoes: number
                     })
-                    query(`INSERT INTO users (id, potatoes) VALUES ("${member?.id}", "${number}")`)
+                    db.run(`INSERT INTO users (id, potatoes) VALUES ("${member?.id}", "${number}")`)
                 } else {
-                    query(`UPDATE users SET potatoes = "${number}" WHERE id = "${member?.id}"`)
+                    db.run(`UPDATE users SET potatoes = "${number}" WHERE id = "${member?.id}"`)
                 }
                 users.sort((a, b) => b.potatoes - a.potatoes)
                 const me = users.findIndex(u => u.id === member?.id)

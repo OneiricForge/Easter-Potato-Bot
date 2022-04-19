@@ -1,9 +1,4 @@
 {
-    "database": {
-        "host": "localhost",
-        "database": "potato",
-        "refresh_time": 3600000
-    },
     "presence": {
         "activated": true,
         "list": [

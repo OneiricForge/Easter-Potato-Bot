@@ -1,14 +1,14 @@
-import mysql from 'mysql';
+import { Database } from 'sqlite3';
 
 import { Bot, Logger } from './utils/class';
-import { database, owners } from './utils/config.json';
+import { owners } from './utils/config.json';
 
 require("dotenv").config()
 
 export const client = new Bot(
 	{
 		devs: owners,
-		inDev: true,
+		inDev: false,
 	},
 	{
 		intents: [
@@ -21,18 +21,27 @@ export const client = new Bot(
 );
 
 
-let db = mysql.createConnection({
-    database: database.database,
-    host: database.host,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASS
-})
+export const db = new Database(`database.db`, err => {
+      if (err) {
+        Logger.error('Moderation ' + err.message);
+        process.exit();
+      }
+    })
 
-db.connect()
+		db.run(`
+			CREATE TABLE IF NOT EXISTS roles (
+				id VARCHAR(18) PRIMARY KEY NOT NULL,
+				description TEXT NOT NULL,
+				link TEXT NOT NULL
+			);
+			`);
+			db.run(`
+			CREATE TABLE IF NOT EXISTS users (
+				id VARCHAR(18) PRIMARY KEY NOT NULL,
+				potatoes INTEGER NOT NULL
+				);
+			`);
 
-export const query = (query: any, fonction?: Function) => {
-    return db.query(query, fonction)
-}
 
 process.on('warning', error => Logger.error(`An error occurred. \n${error.stack}`));
 process.on('uncaughtException', error => Logger.error(`An error occurred. \n${error.stack}`));
